@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tender Document Search</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="logo">TS</div><div><h1>Tender Document Search</h1><p>Search tender PDFs and jump to the matching page</p></div></div><button id="reindexBtn" class="secondary">Re-index documents</button></header>
+<main>
+  <section class="stats" aria-label="Index status">
+    <div class="stat"><span id="docCount">—</span><small>PDF documents</small></div>
+    <div class="stat"><span id="pageCount">—</span><small>Indexed pages</small></div>
+    <div class="stat"><span id="errorCount">—</span><small>Index errors</small></div>
+    <div class="stat"><span id="lastTime">Ready</span><small>Search status</small></div>
+  </section>
+  <section class="search-panel">
+    <label for="query">What do you want to find?</label>
+    <div class="searchline"><input id="query" type="search" placeholder="e.g. EMD amount, eligibility criteria, tender number" autocomplete="off"><button id="searchBtn">Search</button></div>
+    <div class="options"><label class="mode"><input type="radio" name="mode" value="phrase" checked> Exact phrase</label><label class="mode"><input type="radio" name="mode" value="all_words"> All words (any order)</label><span class="hint">Press Enter to search</span></div>
+  </section>
+  <section id="message" class="message" role="status">Search across the indexed tender PDFs. Results include the document name, page number and matching text.</section>
+  <section class="results-head"><h2>Search results</h2><span id="resultSummary"></span></section>
+  <section id="results" class="results"></section>
+  <div class="pagination"><button id="prevBtn" class="secondary" disabled>Previous</button><span id="pageInfo"></span><button id="nextBtn" class="secondary" disabled>Next</button></div>
+  <section class="upload-panel"><div><h2>Add more tender PDFs</h2><p>Uploaded PDFs are indexed immediately. Existing unchanged PDFs are skipped during re-indexing.</p></div><form id="uploadForm"><input id="files" name="files" type="file" accept="application/pdf,.pdf" multiple required><button id="uploadBtn">Upload & index</button></form></section>
+  <footer>Local prototype · PDF text search uses a SQLite full-text index (FTS5). Scanned/image-only pages require OCR before their text can be searched.</footer>
+</main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
